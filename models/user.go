@@ -26,17 +26,15 @@ func GetUsers(db *gorm.DB, User *[]User) error {
 		return err
 
 	}
-
 	return nil
 }
 
 func GetUser(db *gorm.DB, User *User, id int) error {
-	err := db.Where("id = ?", id).First(User).Error
+	err := db.Debug().Where("id = ?", id).First(User).Error
 	if err != nil {
 		return err
 
 	}
-
 	return nil
 }
 
@@ -50,5 +48,4 @@ func UpdateUser(db *gorm.DB, User *User) error {
 func DeleteUser(db *gorm.DB, User *User, id int) error {
 	db.Where("id = ?", id).Delete(User)
 	return nil
-
 }

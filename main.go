@@ -10,7 +10,7 @@ func main() {
 
 	e := setupRouter()
 
-	err := e.Run(":8080")
+	err := e.Run("localhost:8080")
 	if err != nil {
 	}
 }
@@ -23,7 +23,8 @@ func setupRouter() *gin.Engine {
 	})
 
 	repo := controllers.New()
-	engine.POST("/users", repo.CreateUser)
+
+	engine.POST("/user", repo.CreateUser)
 	engine.GET("users", repo.GetUsers)
 	engine.GET("/user/:id", repo.GetUser)
 	engine.PUT("/user/:id", repo.UpdateUser)

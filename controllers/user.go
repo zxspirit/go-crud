@@ -3,6 +3,7 @@ package controllers
 import (
 	"awesomeProject/database"
 	"awesomeProject/models"
+	"awesomeProject/result"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -24,6 +25,7 @@ func New() *UserRepo {
 	return &UserRepo{Db: db}
 }
 func (r *UserRepo) CreateUser(c *gin.Context) {
+
 	var user models.User
 	err := c.BindJSON(&user)
 	if err != nil {
@@ -31,7 +33,7 @@ func (r *UserRepo) CreateUser(c *gin.Context) {
 	}
 	err = models.CreateUser(r.Db, &user)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"err": err})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, result.ErrorResponse(404, "未找到"))
 		return
 	}
 	c.JSON(http.StatusOK, user)
@@ -55,14 +57,15 @@ func (r *UserRepo) GetUser(c *gin.Context) {
 	err := models.GetUser(r.Db, &user, atoi)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			c.AbortWithStatus(http.StatusNotFound)
+			//c.AbortWithStatus(http.StatusNotFound)
+			c.AbortWithStatusJSON(http.StatusInternalServerError, result.ErrorResponse(404, "未找到"))
 			return
 		}
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, result.ErrorResponse(404, "未找到"))
 		return
 
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, result.SuccessResponse(user))
 
 }
 func (r *UserRepo) UpdateUser(c *gin.Context) {

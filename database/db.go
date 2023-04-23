@@ -16,6 +16,7 @@ var Db *gorm.DB
 
 func InitDb() *gorm.DB {
 	Db = connectDb()
+
 	return Db
 }
 
