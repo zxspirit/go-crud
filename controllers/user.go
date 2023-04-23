@@ -37,7 +37,7 @@ func (r *UserRepo) CreateUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, user)
-
+	return
 }
 
 func (r *UserRepo) GetUsers(context *gin.Context) {
