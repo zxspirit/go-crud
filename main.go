@@ -2,6 +2,7 @@ package main
 
 import (
 	"awesomeProject/controllers"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -30,5 +31,6 @@ func setupRouter() *gin.Engine {
 	engine.PUT("/user/:id", repo.UpdateUser)
 	engine.DELETE("/user/:id", repo.DeleteUser)
 
+	fmt.Println("4444444444444444444444444444444444444444444444444444444444444")
 	return engine
 }

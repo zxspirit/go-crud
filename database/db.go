@@ -7,7 +7,7 @@ import (
 )
 
 const DbUsername = "root"
-const DbPassword = "example"
+const DbPassword = "Zhengxu1./"
 const DbName = "go"
 const DbHost = "localhost"
 const DbPort = "3306"
